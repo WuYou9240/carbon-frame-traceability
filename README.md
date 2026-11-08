@@ -5,6 +5,25 @@
 > 本科毕业设计（区块链工程专业，2027 届）。代码按可部署标准组织：敏感配置外置、启动即校验密钥、
 > 链上链下双向可验。演示账号与默认口令仅适用于本地环境。
 
+## 界面预览
+
+**车架详情与哈希验真** — 链下实时哈希与链上存证哈希并列展示，一致即通过，被篡改立即暴露：
+
+<img src="docs/screenshots/frame-detail.jpg" width="860" alt="车架详情与哈希验真">
+
+<table>
+<tr>
+<td width="58%"><b>车架档案列表</b> — 每台车架对应一份链上存证，状态、上链、验真三列一目了然<br>
+<img src="docs/screenshots/frames-list.jpg" alt="车架档案列表"></td>
+<td width="42%"><b>消费者扫码溯源</b> — 免登录，四层防伪校验，输出可读结论<br>
+<img src="docs/screenshots/scan-trace.jpg" alt="扫码溯源与四层校验"></td>
+</tr>
+</table>
+
+**系统总体架构**
+
+<img src="docs/screenshots/architecture.png" width="860" alt="系统总体架构">
+
 ## 技术栈
 
 | 层 | 选型 |
@@ -27,6 +46,7 @@
 │       └── common/       统一返回、异常处理、哈希工具
 ├── qts-frontend/         前端工程
 ├── contracts/            QualityTrace 智能合约（.sol / .abi / .bin）
+├── docs/screenshots/     README 界面截图
 ├── sql/
 │   ├── schema.sql        建表脚本
 │   └── seed.sql          演示账号与标准原料批次
