@@ -1,0 +1,64 @@
+# ---- Java / Maven ----
+target/
+*.jar
+*.class
+*.original
+
+# ---- 前端 ----
+node_modules/
+dist/
+# 前端构建产物，由 npm run build 生成到后端 static 目录
+qts-backend/src/main/resources/static/
+
+# ---- 日志与临时文件 ----
+*.log
+logs/
+backend.log
+frontend.log
+_playwright_*/
+.playwright-cli/
+
+# ---- 本地配置与备份 ----
+_backup_*/
+_db_backup/
+login.yaml
+*.local.yml
+
+# 私有配置：外置 config/application.yml 存放数据库密码与 JWT 密钥
+# 模板 config/application.yml.example 需要提交，故只忽略无后缀的那一个
+config/application.yml
+
+# ---- 非代码资产（论文、求职材料、过程截图）----
+# 论文含未答辩内容，且有查重风险；简历含手机号与邮箱，公开仓库会被爬虫抓取
+论文/
+resume/
+*.pdf
+*.docx
+report.png
+附件*.txt
+_*.png
+_*.json
+
+# ---- 工具运行时 ----
+.workbuddy/
+.claude/
+
+# ---- IDE ----
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# ---- 系统 ----
+.DS_Store
+Thumbs.db
+
+# ---- 本地运维脚本（含虚拟机 SSH 账号）----
+vmrun.py
+
+# ---- FISCO BCOS 接入证书（sdk.key 为私钥，泄露等于交出链上账户控制权）----
+# 克隆后请从自己的链节点复制：nodes/127.0.0.1/sdk/{ca.crt,sdk.crt,sdk.key}
+# 到 qts-backend/src/main/resources/conf/
+qts-backend/src/main/resources/conf/

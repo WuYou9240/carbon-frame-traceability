@@ -1,0 +1,29 @@
+# ============================================================
+# 本地私有配置模板
+# ------------------------------------------------------------
+# 用法：把本文件复制为同目录下的 application.yml，填入真实值。
+#       application.yml 已被 .gitignore 排除，不会提交到仓库。
+#
+#   Windows:  copy config\application.yml.example config\application.yml
+#   Linux/Mac: cp config/application.yml.example config/application.yml
+#
+# Spring Boot 启动时自动读取项目根目录 ./config/application.yml，
+# 优先级高于 jar 内的 application.yml，因此只需写需要覆盖的项。
+# ============================================================
+
+spring:
+  datasource:
+    # 形如 jdbc:mysql://<主机>:<端口>/qts?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/qts?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    password: <你的 MySQL 密码>
+  data:
+    redis:
+      host: 127.0.0.1
+
+fisco:
+  # FISCO BCOS 节点所在主机
+  peer-host: 127.0.0.1
+
+jwt:
+  # 至少 32 字符的随机串，可用 openssl rand -base64 48 生成
+  secret: <改成你自己的 32 位以上随机字符串>
