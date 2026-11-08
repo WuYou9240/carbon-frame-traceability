@@ -1,0 +1,17 @@
+[cryptoMaterial]
+
+certPath = "conf"                           # The certification path
+disableSsl = "false"                        # Communication with nodes without SSL
+useSMCrypto = "false"                       # RPC SM crypto type
+
+[network]
+messageTimeout = "10000"
+defaultGroup = "group0"
+peers = ["192.168.176.101:20200", "192.168.176.101:20201", "192.168.176.101:20202", "192.168.176.101:20203"]
+
+[account]
+keyStoreDir = "account"
+accountFileFormat = "pem"
+
+[threadPool]
+threadPoolSize = "16"

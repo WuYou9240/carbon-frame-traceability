@@ -1,0 +1,64 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: quality-trace-system
+  datasource:
+    # 主机地址通过环境变量 DB_HOST 注入：VMware 虚拟机为 DHCP，IP 会变，改环境变量即可，不必改代码
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/qts?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USER:qts}
+    # 密码不入库版本控制。两种注入方式任选其一：
+    #   1) 环境变量 DB_PASSWORD
+    #   2) 项目根目录 config/application.yml（Spring Boot 自动读外置配置，优先级高于本文件）
+    #      模板见 config/application.yml.example
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+fisco:
+  group: group0
+  # 链节点所在主机，通过环境变量 FISCO_PEER_HOST 覆盖（config.toml 里的 peers 会按此重写）
+  peer-host: ${FISCO_PEER_HOST:127.0.0.1}
+  contract-address: "0xe16469be7721563d4d6a703932058d12ca2ca94c"
+
+jwt:
+  # 密钥不入库版本控制，必须通过环境变量 JWT_SECRET 或 config/application.yml 注入（至少 32 字符）。
+  # 未配置时启动会失败 —— 这是刻意的，避免用默认密钥上线后被伪造 token。
+  secret: ${JWT_SECRET:}
+  expire-hours: 24
+
+app:
+  # 消费者扫码溯源页地址（二维码内容 = 该前缀 + 车架序列号）
+  # 注意：不能用 localhost —— 二维码印出来/用手机扫时，localhost 指向手机本机，必然打不开。
+  # 这里填运行前端 dev server 的那台机器的局域网 IP（手机与电脑连同一 WiFi 即可扫码演示）；
+  # 换环境时用环境变量 QR_BASE_URL 覆盖，不必改代码。
+  # auto = 启动时探测本机局域网 IP，再拼当前端口（换教室/换网络不用改配置）
+  # 确需固定地址时用环境变量 QR_BASE_URL 覆盖，例如 http://192.168.1.10:18080/#/trace/
+  qr-base-url: ${QR_BASE_URL:auto}
+  trace-cache-ttl-seconds: 300
+
+logging:
+  level:
+    com.qts: ${LOG_LEVEL:info}
+    org.fisco: warn
